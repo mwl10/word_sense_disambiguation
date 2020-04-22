@@ -8,8 +8,8 @@ from nltk.corpus.reader.wordnet import information_content
 def resnik_similarity(word1, word2):
     # should also make sure both words are the same part of speech type
     if word1.pos != word2.pos:
-        raise WordNetError("Need both words to be the same part of speech")
-    
+        raise Exception("Need both words to be the same part of speech")
+
     brown_ic = wordnet_ic.ic('ic-brown-resnik-add1.dat')
 
     subsumers = word1.common_hypernyms(word2)
