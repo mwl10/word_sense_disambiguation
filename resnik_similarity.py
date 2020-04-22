@@ -14,7 +14,7 @@ def resnik_similarity(word1, word2):
         subsumer_ic = 0
     else:
         # get the information content value for the most specific/informative subsumer
-        subsumer_ic = max(wn.information_content(sub, brown_ic) for sub in subsumers)
+        subsumer_ic = max(information_content(sub, brown_ic) for sub in subsumers)
 
     return subsumer_ic
 
@@ -23,8 +23,8 @@ cat = wn.synset('cat.n.01')
 hit = wn.synset('hit.v.01')
 slap = wn.synset('slap.v.01')
 
-resnik_similarity(dog, cat)
-resnik_similarity(hit, slap)
+print(resnik_similarity(dog, cat))
+print(resnik_similarity(hit, slap))
 
 
 
