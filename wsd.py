@@ -31,10 +31,3 @@ print(resnik_similarity(dog, cat))
 print(resnik_similarity(hit, slap))
 
 
-
-
-
-
-
-
-
