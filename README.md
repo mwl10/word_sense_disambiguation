@@ -14,5 +14,8 @@ wsd\_contexts.txt.gold |  File with gold standard sense tags
 wsd.py | Code for my Word Sense Disambiguation program and the Resnik Similarity Procedure
 wsd-writeup.txt | Writeup for question 2
 classifier-writeup.txt | Writeup for question 1 
+results.txt | results for my WSD program 
+errors.txt | errors from the classifier in question 2 
+
 
 
