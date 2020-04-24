@@ -1,0 +1,165 @@
+
+HARD
+>>> nb_hard = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features)
+Accuracy: 0.8593
+>>> nb_hard = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_context_features)
+Accuracy: 0.8950
+
+Majority Baseline accuracy = .797369
+Random Baseline accuracy = 1 / 3 = .3333
+
+SERVE
+>>> nb_serve = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'serve.pos', wc.wsd_word_features)
+Accuracy: 0.7386
+>>> nb_serve = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'serve.pos', wc.wsd_context_features)
+Accuracy: 0.8345
+
+Random Baseline = 1 / 4 = .25
+Majority Baseline =  .4143444495
+
+INTEREST
+>>> nb_interest = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'interest.pos', wc.wsd_word_features)
+Accuracy: 0.5443
+>>> nb_interest = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'interest.pos', wc.wsd_context_features)
+Accuracy: 0.4283
+
+Majority Baseline = .528716
+Random Baseline = 1 / 6 = .1666667
+
+LINE
+>>> nb_line = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'line.pos', wc.wsd_word_features)
+Accuracy: 0.7157
+>>> nb_line = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'line.pos', wc.wsd_context_features)
+Accuracy: 0.7373
+
+Random Baseline = 1 / 6 = .166667
+Majority Baseline = .53473227
+
+1. The wsd_word_features representation is more accurate for 'interest' while the wsd_context_features
+is more accurate for 'serve', 'line', and 'hard'. This may be the case as interest's sense is derived less
+from the context of its word pairs, and more-so from its general usage; whereas, serve and line necessitate the
+more direct sentence usage and the pairs associated with the sentence instead of the word_features which focus on the
+most frequent words that occur in the same sentence as the target word accross the entrie training corpus.
+
+It isn't fair to compare the accuracy of the classifiers
+across different target words as different target words have different numbers of sense definitions.
+Also some of these sense definitions may be used a lot more relative to other majority sense definitions
+for other words.
+
+2. It seems as though the classifier accuracy was generally higher relative to the majority baseline,
+I wouldn't say this is always the case for the random baseline as even though it was .16667 for 'line'
+the accuracy got up to .78. The majority baseline for 'hard' was literally higher than this accuracy
+for 'line' at ~.8. I also used a Decision tree classifier for 'line' and it gave an accuracy of .6554 with the word
+features representation. It was taking awhile with the word contexts representation. For serve it was .6747 and
+for hard it was .8651. So the Decision tree accuracy was generally less accurate than the naive bayes classifier.
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+
+RICH FEATURES VS. SPARSE DATA
+
+
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, stopwords_list=[], number=100)
+Accuracy: 0.8385
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, stopwords_list=[], number=200)
+Accuracy: 0.8489
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, stopwords_list=[], number=300)
+Accuracy: 0.8558
+
+So it seems that for wsd_word_features including more of the most frequent words (at least from 100-300) increases
+the accuracy of the classifier.
+
+-----------------------------------------------------------------------------------------------------------
+VARYING THE CONTEXT WINDOW
+
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_context_features, distance = 1)
+Accuracy: 0.9204
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_context_features, distance = 2)
+Accuracy: 0.9008
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_context_features, distance = 3)
+Accuracy: 0.8950
+
+Here reducing the context window before and after the target word to a number smaller than 3 increases the
+ accuracy of the model.
+
+-----------------------------------------------------------------------------------------------------------
+VARYING AMOUNT OF STOPWORDS WITH WORD_FEATS
+
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, stopwords_list = [], number=300)
+Accuracy: 0.8558
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, stopwords_list=wc.STOPWORDS[0:53], number=300))
+Accuracy: 0.8604
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, number=300)
+Accuracy: 0.8593
+
+So in varying the amount of stop words using the word_features representation there was no clear trend, but using about
+half of the stop words from the stopwords list made the accuracy go up slightly.
+
+-----------------------------------------------------------------------------------------------------------
+STOPWORDS LIST USING HARDER AND HARDEST
+
+The accuracy with hardest and harder as the stopwords list :
+>>> wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, stopwords_list=['harder','hardest'])
+Accuracy: 0.8547
+
+The accuracy with the entirety of the stopwords list :
+
+>>> nb_hard = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features)
+Accuracy: 0.8593
+
+So the accuracy went only slightly down (~.005 or a half of a percent). I would assume that harder and hardest wouldn't
+be used frequently in the same sentence as hard, and only in the context of comparison; like 'the rock was hard, the gold was harder,
+and the steel was the hardest'. So I guess making these the stopwords counted out these sentences and made the accuracy of the
+classifier go down.
+
+
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+ERROR ANALYSIS
+
+1.
+For HARD3 it guessed right only 25/77 or 32.5 percent of the time when it guessed things other than HARD3. Although, when it did guess HARD3,
+it was hardly wrong. It never was HARD2 when it guessed HARD3 and it was HARD1 only 5/25 times when it guessed HARD3.
+
+As for HARD2, it guessed right only 44/88 times when it guessed things other than HARD2. And when it did guess HARD2, it was right only
+25/69 or 36 percent of the time.
+
+So in total, in the context of HARD2 the classifier was wrong 21+44+4 / 21+44+4+44 = 69/113 or 61 percent.
+For HARD3 the classifier was wrong 48+4+5/48+4+5+25 = 57/82 or 70 percent. So it seems that hard3 was the hardest to distinguish.
+
+2.
+Its hard to say how we could help out the classifier. It is hard enough for humans to differentiate hard1 and hard2 as they mean very similar
+things respectively (not easy vs. dispassionate) at least relative to 'resisting weight or pressure'. Maybe we clarify some objects that
+tend to be hard in the sense that they 'resist weight or pressure'.
+
+In a handful of cases we have that the classifier guessed hard1 instead of hard2 when the sentence said something to do with 'hard work'
+so if we ensured that 'work' would be used in the context of hard2 (right next to the use of hard) , we would likely improve the classifier's accuracy.
+
+>>> nb_hard = wc.wsd_classifier(nltk.NaiveBayesClassifier.train, 'hard.pos', wc.wsd_word_features, distance=3, confusion_matrix=True, log=True)
+Reading data...
+ Senses: HARD2 HARD3 HARD1
+Training classifier...
+Testing classifier...
+Accuracy: 0.8593
+Writing errors to errors.txt
+      |   H   H   H |
+      |   A   A   A |
+      |   R   R   R |
+      |   D   D   D |
+      |   1   2   3 |
+------+-------------+
+HARD1 |<676> 21   5 |
+HARD2 |  44 <44>  . |
+HARD3 |  48   4 <25>|
+------+-------------+
+(row = reference; col = test)
+
+
+
+
+
+
+
+
+
+
