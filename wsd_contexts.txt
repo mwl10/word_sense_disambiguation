@@ -1,5 +1,5 @@
-tie	    jacket,suit
-suit	jacket,tie
+tie jacket,suit
+suit    jacket,tie
 head	body,hand,eye,voice
 hand	body,head,eye,voice
 seat	body,head,eye,voice

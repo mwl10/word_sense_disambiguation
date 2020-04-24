@@ -1,5 +1,5 @@
 necktie.1		tie	jacket,suit
-suit.1 (of clothes)	suit	jacket,tie
+suit.1 (of clothes) suit	jacket,tie
 head.1 (upper body)	head	body,hand,eye,voice
 hand.1 (extremity)	hand	body,head,eye,voice
 seat.2 (body part)	seat	body,head,eye,voice

@@ -1,0 +1,1 @@
+tie,jacket,6.741793495904226	tie,suit,6.741793495904226		Synset('necktie.n.01')
