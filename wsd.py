@@ -76,9 +76,12 @@ for line in wtf_lines:
             max_rs = rs
             preferred_sense = probe_syn
     # write out the synset we picked
+
     result_line += "{}\n".format(preferred_sense)
     results_out.write(result_line)
 
+
+# computing accuracy
 
 wsd_test_file.close()
 results_out.close()

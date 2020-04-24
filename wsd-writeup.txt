@@ -12,4 +12,5 @@ In considering how to choose the correct sense of the probe word among the conte
 what of the similarity procedure would help me. At first, I thought that I could maybe count how many times in
 computing the similarity of the pairs, the same synset for the probe word would come up and use the synset that
 showed up the most. After some thought and reading the article, I figured it would be simpler to just choose the synset
-of the probe that had been associated with the most similar pair amongst the context words. 
+of the probe that had been associated with the most similar pair amongst the context words. My accuracy was 9/18 or 50%.
+
