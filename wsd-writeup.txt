@@ -1,0 +1,15 @@
+In completing my worse-sense disambiguation program, I ran into a few problems along the way. Initially I read
+the instructions wrong, in that I wrote the resnik_similarity procedure only taking two synsets as parameters instead
+of words themselves. Words entail several synsets so I had to implement the double for loop so that we could sift though each
+of the words synsets and pick which pair of synsets was most similar, keep the similarity value, and keep in mind what the
+synsets themselves were. Initially, it was a bit difficult getting into the context of this api as I was running into a lot of new
+words/definitions like hyponym and hypernym, synset, lemmma, etc. Also, I checked through the wsd_contexts.txt file for spurious
+characters, spaces, and tabs and couldn't figure out why the python split functionality was not working even though I was sure that
+the probe word and the context words were spaced out with a tab properly. To overlook this, I changed the tab in the file to be two
+spaces and the split function was able to pick up on the two spaces properly.
+
+In considering how to choose the correct sense of the probe word among the context words, I had to think about
+what of the similarity procedure would help me. At first, I thought that I could maybe count how many times in
+computing the similarity of the pairs, the same synset for the probe word would come up and use the synset that
+showed up the most. After some thought and reading the article, I figured it would be simpler to just choose the synset
+of the probe that had been associated with the most similar pair amongst the context words. 
