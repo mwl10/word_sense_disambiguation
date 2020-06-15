@@ -1,6 +1,4 @@
-# assn04
-
-This directory for Word Sense Disambiguation Project: 
+# This directory for Word Sense Disambiguation Project: 
 
 Filename | Contents
 -------- | --------
