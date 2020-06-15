@@ -1,6 +1,6 @@
 # assn04
 
-This directory contains files needed for assignment 4, Word Sense Disambiguation: 
+This directory for Word Sense Disambiguation Project: 
 
 Filename | Contents
 -------- | --------
